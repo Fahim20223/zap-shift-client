@@ -2,7 +2,7 @@ import React from "react";
 import { FaQuoteLeft } from "react-icons/fa";
 
 const ReviewCard = ({ review }) => {
-  const { userName, review: testimonial } = review;
+  const { userName, review: testimonial, user_photoURL } = review;
   return (
     <div className="w-full max-w-md bg-white shadow-lg p-6 rounded-2xl border border-gray-100">
       {/* Quote Icon */}
@@ -15,7 +15,9 @@ const ReviewCard = ({ review }) => {
 
       {/* Profile */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-teal-700"></div>
+        <div className="w-10 h-10 rounded-full bg-teal-700">
+          <img className="rounded-full" src={user_photoURL} alt="" />
+        </div>
 
         <div>
           <h3 className="font-semibold text-gray-800">{userName}</h3>
