@@ -11,8 +11,11 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const { registerUser, updateUserProfile } = useAuth();
+
   const location = useLocation();
+
   console.log("in register", location);
 
   const navigate = useNavigate();
@@ -20,19 +23,25 @@ const Register = () => {
   const handleRegistration = (data) => {
     console.log("after register", data.photo[0]);
     const profileImg = data.photo[0];
+
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
-        //store
+        //store the image in form data
+
         const formData = new FormData();
+
         formData.append("image", profileImg);
+
+        //send the photo to store and get the url
         const image_API_URL = `https://api.imgbb.com/1/upload?key=${
           import.meta.env.VITE_IMAGE_HOST_KEY
         }`;
+
         axios.post(image_API_URL, formData).then((res) => {
           console.log("after image upload", res.data.data.url);
 
-          //update user profile
+          //update user profile to firebase
           const userProfile = {
             displayName: data.name,
             photoURL: res.data.data.url,
@@ -49,6 +58,7 @@ const Register = () => {
         console.log(error);
       });
   };
+
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
       <h3 className="text-3xl text-center">Welcome to Zap shift</h3>
@@ -75,7 +85,7 @@ const Register = () => {
             className="file-input"
             placeholder="Your Photo"
           />
-          {errors.name?.type === "required" && (
+          {errors.photo?.type === "required" && (
             <p className="text-red-500">Photo is required</p>
           )}
           {/* email field */}

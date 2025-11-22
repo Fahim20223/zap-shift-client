@@ -10,10 +10,15 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const { signInUser } = useAuth();
+
   const location = useLocation();
+
   const navigate = useNavigate();
+
   console.log("in the login page", location);
+
   const handleLogin = (data) => {
     console.log("form data", data);
     signInUser(data.email, data.password)
@@ -25,6 +30,7 @@ const Login = () => {
         console.log(error);
       });
   };
+
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">
       <h3 className="text-3xl text-center">Welcome back</h3>
