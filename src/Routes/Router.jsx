@@ -33,6 +33,7 @@ const router = createBrowserRouter([
             <SendParcel></SendParcel>
           </PrivateRouter>
         ),
+        loader: () => fetch(`/serviceCenters.json`).then((res) => res.json()),
       },
       {
         path: "/coverage",
